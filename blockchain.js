@@ -11,6 +11,12 @@ class Blockchain {
 		this.miningReward = 5;
 		this.miners = [];
 		this.numOfBlocks = 1;
+		//After this, used for PoS instead of PoW
+		this.safe = [];
+		this.stakeHolders = [];
+		this.numOfStakeHolders = 5;
+		this.percValidatingReward = 0.02;
+		this.pointerStake = 0;
 	}
 
 	createGenesisBlock() {
@@ -30,6 +36,32 @@ class Blockchain {
 		this.pendingTransactions = [
 			new Transaction(null, miningRewardAddress, this.miningReward)
 		];
+	}
+
+	validatePendingTransactions() {
+		var validatingReward = 0;
+		var block = new Block(new Date().getTime().toString(), this.pendingTransactions);
+		if(this.pointerStake < this.numOfStakeHolders) {
+			block.posValidateBlock();
+		}
+		else {
+			this.poolStakeSafe();
+		}
+		console.log("Block successfully validated!");
+		this.chain.push(block);
+		if(block.transactions.length > 0) {
+			for(var tx of block.transactions) {
+				validatingReward += (tx.amount)*this.percValidatingReward;
+			}
+		}
+		this.pendingTransactions = [
+			new Transaction(null, this.stakeHolders[pointerStake], validatingReward)
+		];
+		this.pointerStake++;
+	}
+
+	poolStakeSafe() {
+		//Load the new stakeHolders, safe pools & reset de pointerStake
 	}
 
 	checkIfMiner(address) {
