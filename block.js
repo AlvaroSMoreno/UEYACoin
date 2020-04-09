@@ -21,6 +21,11 @@ class Block {
 		console.log("Block Mined: " + this.hash);
 	}
 
+	posValidateBlock() {
+		this.hash = this.calculateHash();
+		console.log("Block Validated: " + this.hash);
+	}
+
 	hasValidTransactions() {
 		if(this.transactions > 0) {
 			for(var transaction of this.transactions) {
