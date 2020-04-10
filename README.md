@@ -5,3 +5,5 @@ Little project: Custom/private Blockchain with the implementation of new cryptoc
 Developed in Node js
 
 ***Currently implemented: Proof-of-work, trying to extend to Proof-of-Stake.
+
+^^^ Aready on it!
